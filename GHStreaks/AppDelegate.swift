@@ -7,7 +7,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.makeKeyAndVisible()
+        let navigationController = UINavigationController(rootViewController: MainViewController())
+        window!.addSubview(navigationController.view)
+        window!.rootViewController = navigationController
         return true
     }
 
