@@ -13,6 +13,9 @@
 		806C6F3B19D994F200496561 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806C6F3A19D994F200496561 /* Images.xcassets */; };
 		806C6F3E19D994F200496561 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806C6F3C19D994F200496561 /* LaunchScreen.xib */; };
 		806C6F4A19D994F200496561 /* GHStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F4919D994F200496561 /* GHStreaksTests.swift */; };
+		80BEEB1D19DAF0CF0082B4D3 /* ghstreaks-logo-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 80BEEB1A19DAF0CF0082B4D3 /* ghstreaks-logo-58.png */; };
+		80BEEB1E19DAF0CF0082B4D3 /* ghstreaks-logo-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 80BEEB1B19DAF0CF0082B4D3 /* ghstreaks-logo-80.png */; };
+		80BEEB1F19DAF0CF0082B4D3 /* ghstreaks-logo-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 80BEEB1C19DAF0CF0082B4D3 /* ghstreaks-logo-120.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		806C6F4319D994F200496561 /* GHStreaksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHStreaksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		806C6F4819D994F200496561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		806C6F4919D994F200496561 /* GHStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHStreaksTests.swift; sourceTree = "<group>"; };
+		80BEEB1A19DAF0CF0082B4D3 /* ghstreaks-logo-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-58.png"; path = "appicons/ghstreaks-logo-58.png"; sourceTree = "<group>"; };
+		80BEEB1B19DAF0CF0082B4D3 /* ghstreaks-logo-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-80.png"; path = "appicons/ghstreaks-logo-80.png"; sourceTree = "<group>"; };
+		80BEEB1C19DAF0CF0082B4D3 /* ghstreaks-logo-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-120.png"; path = "appicons/ghstreaks-logo-120.png"; sourceTree = "<group>"; };
 		D6B0A7093988CEBAFFBBB975 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E606344673B68BC10A69EBF5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +88,7 @@
 		806C6F3019D994F200496561 /* GHStreaks */ = {
 			isa = PBXGroup;
 			children = (
+				80BEEB1919DAF0C00082B4D3 /* appicons */,
 				806C6F3319D994F200496561 /* AppDelegate.swift */,
 				806C6F3519D994F200496561 /* ViewController.swift */,
 				806C6F3A19D994F200496561 /* Images.xcassets */,
@@ -114,6 +121,16 @@
 				806C6F4819D994F200496561 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		80BEEB1919DAF0C00082B4D3 /* appicons */ = {
+			isa = PBXGroup;
+			children = (
+				80BEEB1A19DAF0CF0082B4D3 /* ghstreaks-logo-58.png */,
+				80BEEB1B19DAF0CF0082B4D3 /* ghstreaks-logo-80.png */,
+				80BEEB1C19DAF0CF0082B4D3 /* ghstreaks-logo-120.png */,
+			);
+			name = appicons;
 			sourceTree = "<group>";
 		};
 		D89E50E78212D1E955ACB114 /* Frameworks */ = {
@@ -217,7 +234,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				806C6F3E19D994F200496561 /* LaunchScreen.xib in Resources */,
+				80BEEB1D19DAF0CF0082B4D3 /* ghstreaks-logo-58.png in Resources */,
 				806C6F3B19D994F200496561 /* Images.xcassets in Resources */,
+				80BEEB1E19DAF0CF0082B4D3 /* ghstreaks-logo-80.png in Resources */,
+				80BEEB1F19DAF0CF0082B4D3 /* ghstreaks-logo-120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
