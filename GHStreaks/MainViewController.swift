@@ -9,6 +9,12 @@ class MainViewController: UIViewController {
         view.backgroundColor = UIColor.whiteColor()
         loadTitleLabel()
         loadStreaksLabel()
+        loadToolBarButton()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: false)
     }
 
     private func loadTitleLabel() {
@@ -30,6 +36,14 @@ class MainViewController: UIViewController {
             label.text = String(currentStreaks as Int)
             return
         })
+    }
+
+    private func loadToolBarButton() {
+        let refleshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: nil, action: nil)
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let preferenceButton = UIBarButtonItem(title: NSString.awesomeIcon(FaCog), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        preferenceButton.setTitleTextAttributes(NSDictionary(objects: [UIFont(name: "FontAwesome", size: 20.0)], forKeys: [NSFontAttributeName]), forState: UIControlState.Normal)
+        toolbarItems = [refleshButton, spacer, preferenceButton]
     }
 
     override func didReceiveMemoryWarning() {
