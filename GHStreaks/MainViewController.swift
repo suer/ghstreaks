@@ -2,6 +2,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    let streaksViewModel = StreaksViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "GHStreaks"
@@ -24,6 +25,11 @@ class MainViewController: UIViewController {
         label.font = UIFont.systemFontOfSize(100)
         label.textAlignment = NSTextAlignment.Center
         view.addSubview(label)
+        streaksViewModel.rac_valuesForKeyPath("currentStreaks", observer: streaksViewModel).subscribeNext({
+            currentStreaks in
+            label.text = String(currentStreaks as Int)
+            return
+        })
     }
 
     override func didReceiveMemoryWarning() {
