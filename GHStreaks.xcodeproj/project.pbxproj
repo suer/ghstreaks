@@ -10,6 +10,7 @@
 		43531055DF03DE28E5B4CCA7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D6D1BB45659E8DDD87E3CA0 /* libPods.a */; };
 		80424FFB19DC2D6000F32FD7 /* PreferenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80424FFA19DC2D6000F32FD7 /* PreferenceViewModel.swift */; };
 		80424FFD19DC2E7400F32FD7 /* preference.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80424FFC19DC2E7400F32FD7 /* preference.plist */; };
+		80424FFF19DC40B100F32FD7 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80424FFE19DC40B100F32FD7 /* PreferenceViewController.swift */; };
 		806C6F3419D994F200496561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F3319D994F200496561 /* AppDelegate.swift */; };
 		806C6F3619D994F200496561 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F3519D994F200496561 /* MainViewController.swift */; };
 		806C6F3B19D994F200496561 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806C6F3A19D994F200496561 /* Images.xcassets */; };
@@ -32,6 +33,7 @@
 		0D6D1BB45659E8DDD87E3CA0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		80424FFA19DC2D6000F32FD7 /* PreferenceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewModel.swift; sourceTree = "<group>"; };
 		80424FFC19DC2E7400F32FD7 /* preference.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = preference.plist; sourceTree = "<group>"; };
+		80424FFE19DC40B100F32FD7 /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		806C6F2E19D994F200496561 /* GHStreaks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHStreaks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806C6F3219D994F200496561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		806C6F3319D994F200496561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				806C6F3319D994F200496561 /* AppDelegate.swift */,
 				806C6F3519D994F200496561 /* MainViewController.swift */,
 				80BEEB2019DAFCFA0082B4D3 /* StreaksViewModel.swift */,
+				80424FFE19DC40B100F32FD7 /* PreferenceViewController.swift */,
 				80424FFA19DC2D6000F32FD7 /* PreferenceViewModel.swift */,
 				806C6F3A19D994F200496561 /* Images.xcassets */,
 				806C6F3119D994F200496561 /* Supporting Files */,
@@ -302,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80424FFF19DC40B100F32FD7 /* PreferenceViewController.swift in Sources */,
 				806C6F3619D994F200496561 /* MainViewController.swift in Sources */,
 				80BEEB2119DAFCFA0082B4D3 /* StreaksViewModel.swift in Sources */,
 				806C6F3419D994F200496561 /* AppDelegate.swift in Sources */,
