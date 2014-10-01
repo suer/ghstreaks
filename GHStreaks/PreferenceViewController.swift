@@ -67,6 +67,8 @@ class PreferenceViewController: UIViewController {
             self.preferenceViewModel.register(user: self.userNameTextField!.text, hour: self.hourTextField!.text, deviceToken: self.getDeviceToken(),
                 success: {
                     SVProgressHUD.showSuccessWithStatus("Success")
+                    self.preferenceViewModel.setUser(self.userNameTextField!.text)
+                    self.preferenceViewModel.setHour(self.hourTextField!.text)
                     return
                 },
                 failure: {
