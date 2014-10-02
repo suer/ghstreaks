@@ -33,6 +33,11 @@ class MainViewController: UIViewController {
         navigationController?.setToolbarHidden(false, animated: false)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        reload()
+    }
+
     private func loadTitleLabel() {
         let label = UILabel(frame: CGRectMake(0, 140, view.bounds.width, 30))
         label.text = "Current Streaks"
@@ -68,22 +73,26 @@ class MainViewController: UIViewController {
         let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: nil, action: nil)
         refreshButton.rac_command = RACCommand(signalBlock: {
             input in
-            SVProgressHUD.showWithStatus("Getting Streaks", maskType: 3)
-            self.streaksViewModel.retrieveStreaks(self.preferenceViewModel.getStreaksURL(),
-                success: {
-                    SVProgressHUD.showSuccessWithStatus("Success")
-                    return
-                },
-                failure: {
-                    exception in
-                    NSLog((exception as NSException).reason ?? "cannot get streaks")
-                    SVProgressHUD.showErrorWithStatus((exception as NSException).reason)
-                    return
-                }
-            )
+            self.reload()
             return RACSignal.empty()
         })
         return refreshButton
+    }
+
+    private func reload() {
+        SVProgressHUD.showWithStatus("Getting Streaks", maskType: 3)
+        self.streaksViewModel.retrieveStreaks(self.preferenceViewModel.getStreaksURL(),
+            success: {
+                SVProgressHUD.showSuccessWithStatus("Success")
+                return
+            },
+            failure: {
+                exception in
+                NSLog((exception as NSException).reason ?? "cannot get streaks")
+                SVProgressHUD.showErrorWithStatus((exception as NSException).reason)
+                return
+            }
+        )
     }
 
     private func createPreferenceButton() -> UIBarButtonItem {
