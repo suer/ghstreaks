@@ -1,10 +1,13 @@
 import UIKit
 
-class PreferenceViewController: UIViewController {
+class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var preferenceViewModel = PreferenceViewModel()
     var userNameTextField: UITextField?
     var hourTextField: UITextField?
+    var hourPickerView: UIPickerView?
+    var hourChoices: [String] = []
+
     convenience init(preferenceViewModel: PreferenceViewModel) {
         self.init(nibName: nil, bundle: nil)
         self.preferenceViewModel = preferenceViewModel
@@ -24,6 +27,7 @@ class PreferenceViewController: UIViewController {
         super.viewDidLoad()
         addUserNameTextField()
         addHourTextField()
+        addHourPickerView()
         addRegisterButton()
     }
 
@@ -51,6 +55,33 @@ class PreferenceViewController: UIViewController {
         hourTextField!.placeholder = "18:00"
         hourTextField!.borderStyle = UITextBorderStyle.RoundedRect
         view.addSubview(hourTextField!)
+    }
+
+    private func addHourPickerView() {
+        hourPickerView = UIPickerView(frame: CGRectMake(0, view.bounds.height, view.bounds.width, 216))
+        hourPickerView!.delegate = self
+        hourPickerView!.dataSource = self
+        hourTextField!.inputView = hourPickerView!
+
+        for i in 0..<24 {
+            hourChoices.append("\(i):00")
+        }
+    }
+
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return hourChoices.count
+    }
+
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return hourChoices[row]
+    }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        hourTextField!.text = hourChoices[row]
     }
 
     private func addRegisterButton() {
