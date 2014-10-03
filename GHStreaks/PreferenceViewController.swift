@@ -29,8 +29,20 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         addHourTextField()
         addHourPickerView()
         addRegisterButton()
+        addGestureRecognizer()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        userNameTextField!.text = preferenceViewModel.user
+        hourTextField!.text = preferenceViewModel.hour
+        for i in 0..<24 {
+            if hourTextField!.text == String(format: "%d:00", i) {
+                hourPickerView?.selectRow(i, inComponent: 0, animated: false)
+            }
+        }
+    }
+    
     private func addUserNameTextField() {
         let userNameLabel = UILabel(frame: CGRectMake(10, 120, 70, 40))
         userNameLabel.text = "User"
@@ -64,7 +76,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         hourTextField!.inputView = hourPickerView!
 
         for i in 0..<24 {
-            hourChoices.append("\(i):00")
+            hourChoices.append(String(format: "%d:00", i))
         }
     }
 
@@ -115,6 +127,15 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     private func getDeviceToken() -> String {
         return (UIApplication.sharedApplication().delegate as? AppDelegate)?.deviceToken ?? ""
+    }
+
+    func addGestureRecognizer() {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("closeSoftwareKeyboard"))
+        view.addGestureRecognizer(gestureRecognizer)
+    }
+
+    func closeSoftwareKeyboard() {
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
