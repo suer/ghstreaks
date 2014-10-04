@@ -26,6 +26,9 @@ class MainViewController: UIViewController {
         loadTitleLabel()
         loadStreaksLabel()
         loadToolBarButton()
+        if preferenceViewModel.user.isEmpty {
+            navigationController?.pushViewController(preferenceViewController, animated: false)
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
