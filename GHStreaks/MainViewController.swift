@@ -83,7 +83,7 @@ class MainViewController: UIViewController {
     }
 
     private func reload() {
-        SVProgressHUD.showWithStatus("Getting Streaks", maskType: 3)
+        SVProgressHUD.showWithStatus(NSLocalizedString("Getting Streaks", comment: ""), maskType: 3)
         self.streaksViewModel.retrieveStreaks(self.preferenceViewModel.getStreaksURL(),
             success: {
                 SVProgressHUD.showSuccessWithStatus("Success")

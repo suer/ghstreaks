@@ -22,7 +22,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     override func viewDidLoad() {
-        title = "Preference"
+        title = NSLocalizedString("Preference", comment: "")
         view.backgroundColor = UIColor.whiteColor()
         super.viewDidLoad()
         addUserNameTextField()
@@ -45,7 +45,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     private func addUserNameTextField() {
         let userNameLabel = UILabel(frame: CGRectMake(10, 120, 70, 40))
-        userNameLabel.text = "User"
+        userNameLabel.text = NSLocalizedString("User", comment: "")
         userNameLabel.textAlignment = .Right
         view.addSubview(userNameLabel)
 
@@ -58,7 +58,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     private func addHourTextField() {
         let hourLabel = UILabel(frame: CGRectMake(10, 180, 70, 40))
-        hourLabel.text = "Notify"
+        hourLabel.text = NSLocalizedString("Notify", comment: "")
         hourLabel.textAlignment = .Right
         view.addSubview(hourLabel)
 
@@ -101,12 +101,12 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         registerButton.frame = CGRectMake(10, 250, view.bounds.width, 30)
         registerButton.titleLabel?.textAlignment = .Center
         registerButton.titleLabel?.font = UIFont.systemFontOfSize(20)
-        registerButton.setTitle("Register", forState: UIControlState.Normal)
+        registerButton.setTitle(NSLocalizedString("Register", comment: ""), forState: UIControlState.Normal)
         view.addSubview(registerButton)
 
         registerButton.rac_command = RACCommand(signalBlock: {
             input in
-            SVProgressHUD.showWithStatus("Registering...", maskType: 3)
+            SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: 3)
             self.preferenceViewModel.register(user: self.userNameTextField!.text, hour: self.hourTextField!.text, deviceToken: self.getDeviceToken(),
                 success: {
                     SVProgressHUD.showSuccessWithStatus("Success")

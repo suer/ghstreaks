@@ -15,6 +15,7 @@
 		806C6F3619D994F200496561 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F3519D994F200496561 /* MainViewController.swift */; };
 		806C6F3B19D994F200496561 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806C6F3A19D994F200496561 /* Images.xcassets */; };
 		806C6F4A19D994F200496561 /* GHStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F4919D994F200496561 /* GHStreaksTests.swift */; };
+		807B2E2419E0481400C04F48 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 807B2E2619E0481400C04F48 /* Localizable.strings */; };
 		80BEEB2119DAFCFA0082B4D3 /* StreaksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEEB2019DAFCFA0082B4D3 /* StreaksViewModel.swift */; };
 		80BEEB2719DB02880082B4D3 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80BEEB2619DB02490082B4D3 /* fontawesome-webfont.ttf */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,8 @@
 		806C6F4319D994F200496561 /* GHStreaksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHStreaksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		806C6F4819D994F200496561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		806C6F4919D994F200496561 /* GHStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHStreaksTests.swift; sourceTree = "<group>"; };
+		807B2E2519E0481400C04F48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		807B2E2719E0482E00C04F48 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80BEEB1A19DAF0CF0082B4D3 /* ghstreaks-logo-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-58.png"; path = "appicons/ghstreaks-logo-58.png"; sourceTree = "<group>"; };
 		80BEEB1B19DAF0CF0082B4D3 /* ghstreaks-logo-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-80.png"; path = "appicons/ghstreaks-logo-80.png"; sourceTree = "<group>"; };
 		80BEEB1C19DAF0CF0082B4D3 /* ghstreaks-logo-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-120.png"; path = "appicons/ghstreaks-logo-120.png"; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 				806C6F3119D994F200496561 /* Supporting Files */,
 				80BEEB2219DAFD600082B4D3 /* GHStreaks-Bridging-Header.h */,
 				80424FFC19DC2E7400F32FD7 /* preference.plist */,
+				807B2E2619E0481400C04F48 /* Localizable.strings */,
 			);
 			path = GHStreaks;
 			sourceTree = "<group>";
@@ -235,6 +239,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 806C6F2519D994F100496561;
 			productRefGroup = 806C6F2F19D994F200496561 /* Products */;
@@ -253,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80BEEB2719DB02880082B4D3 /* fontawesome-webfont.ttf in Resources */,
+				807B2E2419E0481400C04F48 /* Localizable.strings in Resources */,
 				80424FFD19DC2E7400F32FD7 /* preference.plist in Resources */,
 				806C6F3B19D994F200496561 /* Images.xcassets in Resources */,
 			);
@@ -330,6 +336,18 @@
 			targetProxy = 806C6F4419D994F200496561 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		807B2E2619E0481400C04F48 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				807B2E2519E0481400C04F48 /* en */,
+				807B2E2719E0482E00C04F48 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		806C6F4B19D994F200496561 /* Debug */ = {
