@@ -5,3 +5,6 @@ Pods/
 preference.plist
 GHStreaks/font/fontawesome-webfont.ttf
 GHStreaks/preference.plist
+GHStreaks.app.dSYM.zip
+GHStreaks.ipa
+build/
