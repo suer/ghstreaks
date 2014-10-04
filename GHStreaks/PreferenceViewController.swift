@@ -112,6 +112,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     SVProgressHUD.showSuccessWithStatus("Success")
                     self.preferenceViewModel.setUser(self.userNameTextField!.text)
                     self.preferenceViewModel.setHour(self.hourTextField!.text)
+                    self.navigationController!.popViewControllerAnimated(true)
                     return
                 },
                 failure: {
