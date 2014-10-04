@@ -87,6 +87,7 @@ class MainViewController: UIViewController {
         self.streaksViewModel.retrieveStreaks(self.preferenceViewModel.getStreaksURL(),
             success: {
                 SVProgressHUD.showSuccessWithStatus("Success")
+                UIApplication.sharedApplication().applicationIconBadgeNumber = self.streaksViewModel.currentStreaks
                 return
             },
             failure: {
