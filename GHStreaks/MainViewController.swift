@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
             },
             failure: {
                 exception in
-                NSLog((exception as NSException).reason ?? "cannot get streaks")
+                NSLog((exception as NSException).reason ?? NSLocalizedString("cannot get streaks", comment: ""))
                 SVProgressHUD.showErrorWithStatus((exception as NSException).reason)
                 return
             }
