@@ -13,19 +13,19 @@ class PreferenceViewModel: RVMViewModel {
 
     func getStreaksURL() -> NSURL {
         let baseURL = NSURL(string: getServiceURL())
-        return NSURL(string: "/streaks/\(user)", relativeToURL: baseURL)
+        return NSURL(string: "/streaks/\(user)", relativeToURL: baseURL)!
     }
 
     private func getRegisterURL() -> NSURL {
         let baseURL = NSURL(string: getServiceURL())
-        return NSURL(string: "/notifications", relativeToURL: baseURL)
+        return NSURL(string: "/notifications", relativeToURL: baseURL)!
     }
 
     private func getServiceURL() -> String {
         let bundle = NSBundle.mainBundle()
         let path = bundle.pathForResource("preference", ofType: "plist")
         let dictionary = NSDictionary(contentsOfFile: path!)
-        return dictionary.objectForKey("ServiceURL") as String
+        return dictionary!.objectForKey("ServiceURL") as String
     }
 
     func setUser(user: String) {

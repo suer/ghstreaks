@@ -101,7 +101,9 @@ class MainViewController: UIViewController {
 
     private func createPreferenceButton() -> UIBarButtonItem {
         let preferenceButton = UIBarButtonItem(title: NSString.awesomeIcon(FaCog), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-        preferenceButton.setTitleTextAttributes(NSDictionary(objects: [UIFont(name: "FontAwesome", size: 20.0)], forKeys: [NSFontAttributeName]), forState: UIControlState.Normal)
+        let font = UIFont(name: "FontAwesome", size: 20.0)
+        let dictionary = NSDictionary(object: font!, forKey: NSFontAttributeName)
+        preferenceButton.setTitleTextAttributes(dictionary, forState: UIControlState.Normal)
         preferenceButton.rac_command = RACCommand(signalBlock: {
             input in
             self.navigationController?.pushViewController(self.preferenceViewController, animated: true)
