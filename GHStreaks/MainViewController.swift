@@ -29,6 +29,11 @@ class MainViewController: UIViewController {
         if preferenceViewModel.user.isEmpty {
             navigationController?.pushViewController(preferenceViewController, animated: false)
         }
+        addNotificationObserver()
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -80,6 +85,14 @@ class MainViewController: UIViewController {
             return RACSignal.empty()
         })
         return refreshButton
+    }
+
+    func addNotificationObserver() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActive:"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+    }
+
+    func applicationDidBecomeActive(notification: NSNotification) {
+        reload()
     }
 
     private func reload() {
