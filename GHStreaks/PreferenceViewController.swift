@@ -24,6 +24,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         title = NSLocalizedString("Preference", comment: "")
         view.backgroundColor = UIColor.whiteColor()
+        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
         super.viewDidLoad()
         addUserNameTextField()
         addHourTextField()

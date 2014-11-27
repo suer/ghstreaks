@@ -5,6 +5,8 @@ class MainViewController: UIViewController {
     let streaksViewModel = StreaksViewModel()
     let preferenceViewModel = PreferenceViewModel()
     var preferenceViewController: PreferenceViewController
+    let titleLabel = UILabel()
+    let streaksLabel = UILabel()
 
     convenience override init() {
         self.init(nibName: nil, bundle: nil)
@@ -23,6 +25,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         title = "GHStreaks"
         view.backgroundColor = UIColor.whiteColor()
+        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
         loadTitleLabel()
         loadStreaksLabel()
         loadToolBarButton()
@@ -47,22 +50,38 @@ class MainViewController: UIViewController {
     }
 
     private func loadTitleLabel() {
-        let label = UILabel(frame: CGRectMake(0, 140, view.bounds.width, 30))
-        label.text = "Current Streaks"
-        label.font = UIFont.systemFontOfSize(30)
-        label.textAlignment = NSTextAlignment.Center
-        view.addSubview(label)
+        titleLabel.text = "Current Streaks"
+        titleLabel.font = UIFont.systemFontOfSize(30)
+        titleLabel.textAlignment = NSTextAlignment.Center
+        view.addSubview(titleLabel)
+
+        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let top = view.bounds.height / 5
+        view.addConstraints([
+            NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: top),
+            NSLayoutConstraint(item: titleLabel, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: top + 30.0),
+            NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
+            ])
     }
 
     private func loadStreaksLabel() {
-        let label = UILabel(frame: CGRectMake(0, 200, view.bounds.width, 100))
-        label.text = ""
-        label.font = UIFont.systemFontOfSize(100)
-        label.textAlignment = NSTextAlignment.Center
-        view.addSubview(label)
+        streaksLabel.text = ""
+        streaksLabel.font = UIFont.systemFontOfSize(100)
+        streaksLabel.textAlignment = NSTextAlignment.Center
+        view.addSubview(streaksLabel)
+
+        streaksLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addConstraints([
+            NSLayoutConstraint(item: streaksLabel, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Top, multiplier: 1.0, constant: 30.0),
+            NSLayoutConstraint(item: streaksLabel, attribute: .Bottom, relatedBy: .Equal, toItem: titleLabel, attribute: .Top, multiplier: 1.0, constant: 130.0),
+            NSLayoutConstraint(item: streaksLabel, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: streaksLabel, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
+            ])
+
         streaksViewModel.rac_valuesForKeyPath("currentStreaks", observer: streaksViewModel).subscribeNext({
             currentStreaks in
-            label.text = String(currentStreaks as Int)
+            self.streaksLabel.text = String(currentStreaks as Int)
             return
         })
     }
