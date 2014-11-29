@@ -6,6 +6,17 @@ class PreferenceViewModel: RVMViewModel {
     dynamic var hour: String = ""
 
     override init() {
+        super.init()
+        load()
+    }
+
+    func save() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(user, forKey: keyOfUser)
+        userDefaults.setObject(hour, forKey: keyOfHour)
+    }
+
+    func load() {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         self.user = userDefaults.stringForKey(keyOfUser) ?? ""
         self.hour = userDefaults.stringForKey(keyOfHour) ?? "18:00"
@@ -29,14 +40,10 @@ class PreferenceViewModel: RVMViewModel {
     }
 
     func setUser(user: String) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(user, forKey: keyOfUser)
         self.user = user
     }
 
     func setHour(hour: String) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(hour, forKey: keyOfHour)
         self.hour = hour
     }
 

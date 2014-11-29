@@ -1,12 +1,15 @@
 import UIKit
 
-class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var preferenceViewModel = PreferenceViewModel()
-    var userNameTextField: UITextField?
-    var hourTextField: UITextField?
     var hourPickerView: UIPickerView?
     var hourChoices: [String] = []
+    var tableView: UITableView = UITableView()
+    var userTextField = UITextField()
+    var invisibleDateTextField = UITextField()
+
+    let cellHeight = CGFloat(50)
 
     convenience init(preferenceViewModel: PreferenceViewModel) {
         self.init(nibName: nil, bundle: nil)
@@ -25,56 +28,101 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         title = NSLocalizedString("Preference", comment: "")
         view.backgroundColor = UIColor.whiteColor()
         view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        edgesForExtendedLayout = UIRectEdge.None
+        automaticallyAdjustsScrollViewInsets = false
         super.viewDidLoad()
-        addUserNameTextField()
-        addHourTextField()
         addHourPickerView()
         addRegisterButton()
-        addGestureRecognizer()
+        addTableView()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        userNameTextField!.text = preferenceViewModel.user
-        hourTextField!.text = preferenceViewModel.hour
+        preferenceViewModel.load()
+        userTextField.text = preferenceViewModel.user
         for i in 0..<24 {
-            if hourTextField!.text == String(format: "%d:00", i) {
+            if preferenceViewModel.hour == String(format: "%d:00", i) {
                 hourPickerView?.selectRow(i, inComponent: 0, animated: false)
             }
         }
-    }
-    
-    private func addUserNameTextField() {
-        let userNameLabel = UILabel(frame: CGRectMake(10, 120, 70, 40))
-        userNameLabel.text = NSLocalizedString("User", comment: "")
-        userNameLabel.textAlignment = .Right
-        view.addSubview(userNameLabel)
-
-        userNameTextField = UITextField(frame: CGRectMake(100, 120, 210, 40))
-        userNameTextField!.text = preferenceViewModel.user
-        userNameTextField!.placeholder = "Github User Name"
-        userNameTextField!.borderStyle = UITextBorderStyle.RoundedRect
-        view.addSubview(userNameTextField!)
+        tableView.reloadData()
     }
 
-    private func addHourTextField() {
-        let hourLabel = UILabel(frame: CGRectMake(10, 180, 70, 40))
-        hourLabel.text = NSLocalizedString("Notify", comment: "")
-        hourLabel.textAlignment = .Right
-        view.addSubview(hourLabel)
+    private func addTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
 
-        hourTextField = UITextField(frame: CGRectMake(100, 180, 210, 40))
-        hourTextField!.text = preferenceViewModel.hour
-        hourTextField!.placeholder = "18:00"
-        hourTextField!.borderStyle = UITextBorderStyle.RoundedRect
-        view.addSubview(hourTextField!)
+        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addConstraints([
+            NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: tableView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: cellHeight * 2),
+            NSLayoutConstraint(item: tableView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: tableView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
+            ])
+
+        view.addSubview(invisibleDateTextField)
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return cellHeight
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
+        switch indexPath.row {
+        case 0:
+            cell.textLabel.text = NSLocalizedString("User", comment: "")
+            cell.contentView.addSubview(userTextField)
+            userTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+            cell.contentView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+            cell.contentView.addConstraints([
+                NSLayoutConstraint(item: userTextField, attribute: .Top, relatedBy: .Equal, toItem: cell.contentView, attribute: .Top, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: userTextField, attribute: .Bottom, relatedBy: .Equal, toItem: cell.contentView, attribute: .Bottom, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: userTextField, attribute: .Left, relatedBy: .Equal, toItem: cell.contentView, attribute: .Left, multiplier: 1.0, constant: 100.0),
+                NSLayoutConstraint(item: userTextField, attribute: .Right, relatedBy: .Equal, toItem: cell.contentView, attribute: .Right, multiplier: 1.0, constant: -15.0)
+                ])
+            userTextField.textAlignment = .Right
+            userTextField.rac_textSignal().subscribeNext({
+                obj in
+                self.preferenceViewModel.user = self.userTextField.text
+                return
+            })
+        case 1:
+            cell.textLabel.text = NSLocalizedString("Notify", comment: "")
+            preferenceViewModel.rac_valuesForKeyPath("hour", observer: preferenceViewModel).subscribeNext({
+                obj in
+                cell.detailTextLabel?.text = self.preferenceViewModel.hour
+                return
+            })
+        default:
+            break
+        }
+        return cell
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        switch (indexPath.row) {
+        case 0:
+            userTextField.becomeFirstResponder()
+        case 1:
+            invisibleDateTextField.becomeFirstResponder()
+        default:
+            return
+        }
     }
 
     private func addHourPickerView() {
         hourPickerView = UIPickerView(frame: CGRectMake(0, view.bounds.height, view.bounds.width, 216))
         hourPickerView!.delegate = self
         hourPickerView!.dataSource = self
-        hourTextField!.inputView = hourPickerView!
+        invisibleDateTextField.inputView = hourPickerView!
 
         for i in 0..<24 {
             hourChoices.append(String(format: "%d:00", i))
@@ -94,7 +142,7 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        hourTextField!.text = hourChoices[row]
+        preferenceViewModel.setHour(hourChoices[row])
     }
 
     private func addRegisterButton() {
@@ -105,14 +153,23 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         registerButton.setTitle(NSLocalizedString("Register", comment: ""), forState: UIControlState.Normal)
         view.addSubview(registerButton)
 
+        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        registerButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addConstraints([
+            NSLayoutConstraint(item: registerButton, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: cellHeight * 3),
+            NSLayoutConstraint(item: registerButton, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1.0, constant: cellHeight * 4),
+            NSLayoutConstraint(item: registerButton, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: registerButton, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
+            ])
+
         registerButton.rac_command = RACCommand(signalBlock: {
             input in
+            self.blur()
             SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: 3)
-            self.preferenceViewModel.register(user: self.userNameTextField!.text, hour: self.hourTextField!.text, deviceToken: self.getDeviceToken(),
+            self.preferenceViewModel.register(user: self.preferenceViewModel.user, hour: self.preferenceViewModel.hour, deviceToken: self.getDeviceToken(),
                 success: {
                     SVProgressHUD.showSuccessWithStatus("Success")
-                    self.preferenceViewModel.setUser(self.userNameTextField!.text)
-                    self.preferenceViewModel.setHour(self.hourTextField!.text)
+                    self.preferenceViewModel.save()
                     self.navigationController!.popViewControllerAnimated(true)
                     return
                 },
@@ -131,13 +188,13 @@ class PreferenceViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return (UIApplication.sharedApplication().delegate as? AppDelegate)?.deviceToken ?? ""
     }
 
-    func addGestureRecognizer() {
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("closeSoftwareKeyboard"))
-        view.addGestureRecognizer(gestureRecognizer)
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        blur()
     }
 
-    func closeSoftwareKeyboard() {
-        view.endEditing(true)
+    private func blur() {
+        userTextField.resignFirstResponder()
+        invisibleDateTextField.resignFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
