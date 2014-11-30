@@ -34,6 +34,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         addHourPickerView()
         addRegisterButton()
         addTableView()
+        addNaviagationBarButton()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -170,7 +171,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
                 success: {
                     SVProgressHUD.showSuccessWithStatus("Success")
                     self.preferenceViewModel.save()
-                    self.navigationController!.popViewControllerAnimated(true)
+                    self.dismissViewControllerAnimated(true, completion: nil)
                     return
                 },
                 failure: {
@@ -182,6 +183,14 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
             )
             return RACSignal.empty()
         })
+    }
+
+    private func addNaviagationBarButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .Plain, target: self, action: "cancelButtonTapped:")
+    }
+
+    func cancelButtonTapped(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     private func getDeviceToken() -> String {

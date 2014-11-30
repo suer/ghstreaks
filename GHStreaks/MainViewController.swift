@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
         loadStreaksLabel()
         loadToolBarButton()
         if preferenceViewModel.user.isEmpty {
-            navigationController?.pushViewController(preferenceViewController, animated: false)
+            openPreferenceView()
         }
         addNotificationObserver()
     }
@@ -138,10 +138,16 @@ class MainViewController: UIViewController {
         preferenceButton.setTitleTextAttributes(dictionary, forState: UIControlState.Normal)
         preferenceButton.rac_command = RACCommand(signalBlock: {
             input in
-            self.navigationController?.pushViewController(self.preferenceViewController, animated: true)
+            self.openPreferenceView()
             return RACSignal.empty()
         })
         return preferenceButton
+    }
+
+    private func openPreferenceView() {
+        let navigationController = UINavigationController(rootViewController: self.preferenceViewController)
+        navigationController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(navigationController, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
