@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: MainViewController())
         window!.addSubview(navigationController.view)
         window!.rootViewController = navigationController
+        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         return true
     }
 
@@ -47,6 +48,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.deviceToken = (deviceToken.description as NSString)
             .stringByTrimmingCharactersInSet(characterSet)
             .stringByReplacingOccurrencesOfString(" ", withString: "") as String
+    }
+
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        let streaksViewModel = StreaksViewModel()
+        let preferenceViewModel = PreferenceViewModel()
+        var currentStreaks = streaksViewModel.currentStreaks
+
+        if !preferenceViewModel.user.isEmpty {
+            streaksViewModel.retrieveStreaks(preferenceViewModel.getStreaksURL(),
+                success: {
+                    currentStreaks = streaksViewModel.currentStreaks
+                },
+                failure: {
+                    exception in
+                    return
+                }
+            )
+        }
+
+        UIApplication.sharedApplication().applicationIconBadgeNumber = currentStreaks
+        completionHandler(UIBackgroundFetchResult.NewData)
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
