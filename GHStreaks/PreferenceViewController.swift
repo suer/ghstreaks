@@ -1,6 +1,6 @@
 import UIKit
 
-class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
     var preferenceViewModel = PreferenceViewModel()
     var hourPickerView: UIPickerView?
@@ -89,22 +89,29 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
                 NSLayoutConstraint(item: userTextField, attribute: .Right, relatedBy: .Equal, toItem: cell.contentView, attribute: .Right, multiplier: 1.0, constant: -15.0)
                 ])
             userTextField.textAlignment = .Right
-            userTextField.rac_textSignal().subscribeNext({
-                obj in
-                self.preferenceViewModel.user = self.userTextField.text
-                return
-            })
+            userTextField.delegate = self
         case 1:
             cell.textLabel.text = NSLocalizedString("Notify", comment: "")
-            preferenceViewModel.rac_valuesForKeyPath("hour", observer: preferenceViewModel).subscribeNext({
-                obj in
-                cell.detailTextLabel?.text = self.preferenceViewModel.hour
-                return
-            })
+            cell.detailTextLabel?.text = preferenceViewModel.hour
+            preferenceViewModel.addObserver(self, forKeyPath: "hour", options: .New, context: nil)
         default:
             break
         }
         return cell
+    }
+
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if keyPath == "hour" {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+            cell?.detailTextLabel?.text = preferenceViewModel.hour
+        }
+    }
+
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        if textField == userTextField {
+            preferenceViewModel.user = userTextField.text
+        }
+        return true
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -152,6 +159,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         registerButton.titleLabel?.textAlignment = .Center
         registerButton.titleLabel?.font = UIFont.systemFontOfSize(20)
         registerButton.setTitle(NSLocalizedString("Register", comment: ""), forState: UIControlState.Normal)
+        registerButton.addTarget(self, action: Selector("registerButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(registerButton)
 
         view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
@@ -162,34 +170,32 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
             NSLayoutConstraint(item: registerButton, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: registerButton, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
             ])
+    }
 
-        registerButton.rac_command = RACCommand(signalBlock: {
-            input in
-            self.blur()
-            SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: 3)
-            self.preferenceViewModel.register(user: self.preferenceViewModel.user, hour: self.preferenceViewModel.hour, deviceToken: self.getDeviceToken(),
-                success: {
-                    SVProgressHUD.showSuccessWithStatus("Success")
-                    self.preferenceViewModel.save()
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    return
-                },
-                failure: {
-                    exception in
-                    NSLog((exception as NSException).reason ?? "cannot get streaks")
-                    SVProgressHUD.showErrorWithStatus((exception as NSException).reason)
-                    return
-                }
-            )
-            return RACSignal.empty()
-        })
+    func registerButtonTapped() {
+        self.blur()
+        SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: 3)
+        self.preferenceViewModel.register(user: self.preferenceViewModel.user, hour: self.preferenceViewModel.hour, deviceToken: self.getDeviceToken(),
+            success: {
+                SVProgressHUD.showSuccessWithStatus("Success")
+                self.preferenceViewModel.save()
+                self.dismissViewControllerAnimated(true, completion: nil)
+                return
+            },
+            failure: {
+                exception in
+                NSLog((exception as NSException).reason ?? "cannot get streaks")
+                SVProgressHUD.showErrorWithStatus((exception as NSException).reason)
+                return
+            }
+        )
     }
 
     private func addNaviagationBarButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .Plain, target: self, action: "cancelButtonTapped:")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .Plain, target: self, action: "cancelButtonTapped")
     }
 
-    func cancelButtonTapped(sender: AnyObject) {
+    func cancelButtonTapped() {
         dismissViewControllerAnimated(true, completion: nil)
     }
 

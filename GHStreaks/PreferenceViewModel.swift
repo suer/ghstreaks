@@ -1,4 +1,4 @@
-class PreferenceViewModel: RVMViewModel {
+class PreferenceViewModel: NSObject {
     let keyOfUser = "GITHUB_USER"
     let keyOfHour = "NOTIFICATION_HOUR"
 

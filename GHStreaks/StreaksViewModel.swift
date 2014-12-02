@@ -1,4 +1,4 @@
-class StreaksViewModel: RVMViewModel {
+class StreaksViewModel: NSObject {
     dynamic var currentStreaks = 0
     let KEY_OF_CURRENT_STREAKS = "CURRENT_STREAKS"
 

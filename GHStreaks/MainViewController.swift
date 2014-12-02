@@ -79,11 +79,15 @@ class MainViewController: UIViewController {
             NSLayoutConstraint(item: streaksLabel, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1.0, constant: 0.0)
             ])
 
-        streaksViewModel.rac_valuesForKeyPath("currentStreaks", observer: streaksViewModel).subscribeNext({
-            currentStreaks in
-            self.streaksLabel.text = String(currentStreaks as Int)
-            return
-        })
+        streaksViewModel.addObserver(self, forKeyPath: "currentStreaks", options: .New, context: nil)
+    }
+
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if keyPath == "currentStreaks" {
+            if let newStreaks = change["new"] as? Int {
+                streaksLabel.text = String(newStreaks)
+            }
+        }
     }
 
     private func loadToolBarButton() {
@@ -97,13 +101,12 @@ class MainViewController: UIViewController {
     }
 
     private func createRefreshButton() -> UIBarButtonItem {
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: nil, action: nil)
-        refreshButton.rac_command = RACCommand(signalBlock: {
-            input in
-            self.reload()
-            return RACSignal.empty()
-        })
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("refreshButtonTapped"))
         return refreshButton
+    }
+
+    func refreshButtonTapped() {
+        self.reload()
     }
 
     func addNotificationObserver() {
@@ -115,6 +118,7 @@ class MainViewController: UIViewController {
     }
 
     private func reload() {
+        preferenceViewModel.load()
         SVProgressHUD.showWithStatus(NSLocalizedString("Getting Streaks", comment: ""), maskType: 3)
         self.streaksViewModel.retrieveStreaks(self.preferenceViewModel.getStreaksURL(),
             success: {
@@ -132,16 +136,15 @@ class MainViewController: UIViewController {
     }
 
     private func createPreferenceButton() -> UIBarButtonItem {
-        let preferenceButton = UIBarButtonItem(title: NSString.awesomeIcon(FaCog), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        let preferenceButton = UIBarButtonItem(title: NSString.awesomeIcon(FaCog), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("preferenceButtonTapped"))
         let font = UIFont(name: "FontAwesome", size: 20.0)
         let dictionary = NSDictionary(object: font!, forKey: NSFontAttributeName)
         preferenceButton.setTitleTextAttributes(dictionary, forState: UIControlState.Normal)
-        preferenceButton.rac_command = RACCommand(signalBlock: {
-            input in
-            self.openPreferenceView()
-            return RACSignal.empty()
-        })
         return preferenceButton
+    }
+
+    func preferenceButtonTapped() {
+        self.openPreferenceView()
     }
 
     private func openPreferenceView() {
