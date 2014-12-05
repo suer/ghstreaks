@@ -78,7 +78,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
         switch indexPath.row {
         case 0:
-            cell.textLabel.text = NSLocalizedString("User", comment: "")
+            cell.textLabel?.text = NSLocalizedString("User", comment: "")
             cell.contentView.addSubview(userTextField)
             userTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
             cell.contentView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
@@ -91,7 +91,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
             userTextField.textAlignment = .Right
             userTextField.delegate = self
         case 1:
-            cell.textLabel.text = NSLocalizedString("Notify", comment: "")
+            cell.textLabel?.text = NSLocalizedString("Notify", comment: "")
             cell.detailTextLabel?.text = preferenceViewModel.hour
             preferenceViewModel.addObserver(self, forKeyPath: "hour", options: .New, context: nil)
         default:
