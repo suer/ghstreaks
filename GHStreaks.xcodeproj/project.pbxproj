@@ -16,6 +16,9 @@
 		806C6F3B19D994F200496561 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806C6F3A19D994F200496561 /* Images.xcassets */; };
 		806C6F4A19D994F200496561 /* GHStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806C6F4919D994F200496561 /* GHStreaksTests.swift */; };
 		807B2E2419E0481400C04F48 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 807B2E2619E0481400C04F48 /* Localizable.strings */; };
+		80B506801A31FB9600F1221A /* preference.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B5067D1A31FB9600F1221A /* preference.png */; };
+		80B506811A31FB9600F1221A /* preference@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B5067E1A31FB9600F1221A /* preference@2x.png */; };
+		80B506821A31FB9600F1221A /* preference@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80B5067F1A31FB9600F1221A /* preference@3x.png */; };
 		80BEEB2119DAFCFA0082B4D3 /* StreaksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BEEB2019DAFCFA0082B4D3 /* StreaksViewModel.swift */; };
 		80BEEB2719DB02880082B4D3 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80BEEB2619DB02490082B4D3 /* fontawesome-webfont.ttf */; };
 /* End PBXBuildFile section */
@@ -45,6 +48,9 @@
 		806C6F4919D994F200496561 /* GHStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHStreaksTests.swift; sourceTree = "<group>"; };
 		807B2E2519E0481400C04F48 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		807B2E2719E0482E00C04F48 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80B5067D1A31FB9600F1221A /* preference.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = preference.png; path = images/preference.png; sourceTree = "<group>"; };
+		80B5067E1A31FB9600F1221A /* preference@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "preference@2x.png"; path = "images/preference@2x.png"; sourceTree = "<group>"; };
+		80B5067F1A31FB9600F1221A /* preference@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "preference@3x.png"; path = "images/preference@3x.png"; sourceTree = "<group>"; };
 		80BEEB1A19DAF0CF0082B4D3 /* ghstreaks-logo-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-58.png"; path = "appicons/ghstreaks-logo-58.png"; sourceTree = "<group>"; };
 		80BEEB1B19DAF0CF0082B4D3 /* ghstreaks-logo-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-80.png"; path = "appicons/ghstreaks-logo-80.png"; sourceTree = "<group>"; };
 		80BEEB1C19DAF0CF0082B4D3 /* ghstreaks-logo-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ghstreaks-logo-120.png"; path = "appicons/ghstreaks-logo-120.png"; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 			children = (
 				80BEEB2619DB02490082B4D3 /* fontawesome-webfont.ttf */,
 				80BEEB2519DB02320082B4D3 /* font */,
+				80B506761A31FB4A00F1221A /* images */,
 				80BEEB1919DAF0C00082B4D3 /* appicons */,
 				806C6F3319D994F200496561 /* AppDelegate.swift */,
 				806C6F3519D994F200496561 /* MainViewController.swift */,
@@ -137,6 +144,16 @@
 				806C6F4819D994F200496561 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		80B506761A31FB4A00F1221A /* images */ = {
+			isa = PBXGroup;
+			children = (
+				80B5067D1A31FB9600F1221A /* preference.png */,
+				80B5067E1A31FB9600F1221A /* preference@2x.png */,
+				80B5067F1A31FB9600F1221A /* preference@3x.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 		80BEEB1919DAF0C00082B4D3 /* appicons */ = {
@@ -262,10 +279,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80B506801A31FB9600F1221A /* preference.png in Resources */,
 				80BEEB2719DB02880082B4D3 /* fontawesome-webfont.ttf in Resources */,
+				80B506821A31FB9600F1221A /* preference@3x.png in Resources */,
 				807B2E2419E0481400C04F48 /* Localizable.strings in Resources */,
 				80424FFD19DC2E7400F32FD7 /* preference.plist in Resources */,
 				806C6F3B19D994F200496561 /* Images.xcassets in Resources */,
+				80B506811A31FB9600F1221A /* preference@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

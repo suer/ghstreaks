@@ -91,22 +91,21 @@ class MainViewController: UIViewController {
     }
 
     private func loadToolBarButton() {
-        let refreshButton = createRefreshButton()
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("refreshButtonTapped"))
 
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
 
-        let preferenceButton = createPreferenceButton()
+        let preferenceButton = UIBarButtonItem(image: UIImage(named: "preference.png"), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("preferenceButtonTapped"))
 
         toolbarItems = [refreshButton, spacer, preferenceButton]
     }
 
-    private func createRefreshButton() -> UIBarButtonItem {
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("refreshButtonTapped"))
-        return refreshButton
-    }
-
     func refreshButtonTapped() {
         self.reload()
+    }
+
+    func preferenceButtonTapped() {
+        self.openPreferenceView()
     }
 
     func addNotificationObserver() {
@@ -133,18 +132,6 @@ class MainViewController: UIViewController {
                 return
             }
         )
-    }
-
-    private func createPreferenceButton() -> UIBarButtonItem {
-        let preferenceButton = UIBarButtonItem(title: NSString.awesomeIcon(FaCog), style: UIBarButtonItemStyle.Plain, target: self, action: Selector("preferenceButtonTapped"))
-        let font = UIFont(name: "FontAwesome", size: 20.0)
-        let dictionary = NSDictionary(object: font!, forKey: NSFontAttributeName)
-        preferenceButton.setTitleTextAttributes(dictionary, forState: UIControlState.Normal)
-        return preferenceButton
-    }
-
-    func preferenceButtonTapped() {
-        self.openPreferenceView()
     }
 
     private func openPreferenceView() {
