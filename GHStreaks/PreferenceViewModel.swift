@@ -2,8 +2,8 @@ class PreferenceViewModel: NSObject {
     let keyOfUser = "GITHUB_USER"
     let keyOfHour = "NOTIFICATION_HOUR"
 
-    dynamic var user: String = ""
-    dynamic var hour: String = ""
+    dynamic var user = ""
+    dynamic var hour = ""
 
     override init() {
         super.init()

@@ -46,6 +46,9 @@ class MainViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if !streaksViewModel.isExpired() || preferenceViewModel.user.isEmpty {
+            return
+        }
         reload()
     }
 
@@ -113,6 +116,9 @@ class MainViewController: UIViewController {
     }
 
     func applicationDidBecomeActive(notification: NSNotification) {
+        if !streaksViewModel.isExpired() || preferenceViewModel.user.isEmpty {
+            return
+        }
         reload()
     }
 
@@ -123,6 +129,7 @@ class MainViewController: UIViewController {
             success: {
                 SVProgressHUD.showSuccessWithStatus("Success")
                 UIApplication.sharedApplication().applicationIconBadgeNumber = self.streaksViewModel.currentStreaks
+                self.streaksViewModel.saveReloadTime()
                 return
             },
             failure: {

@@ -1,6 +1,8 @@
 class StreaksViewModel: NSObject {
     dynamic var currentStreaks = 0
     let KEY_OF_CURRENT_STREAKS = "CURRENT_STREAKS"
+    let KEY_OF_RELOAD_TIME = "RELOAD_TIME"
+    let expirationMinutes = 10
 
     override init () {
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -33,5 +35,18 @@ class StreaksViewModel: NSObject {
 
             return
         })
+    }
+
+    func saveReloadTime() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setObject(NSDate(), forKey: KEY_OF_RELOAD_TIME)
+    }
+
+    func isExpired() -> Bool {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let reloadTime = userDefaults.objectForKey(KEY_OF_RELOAD_TIME) as? NSDate {
+            return abs(reloadTime.timeIntervalSinceNow) > 10 * 60
+        }
+        return true
     }
 }
