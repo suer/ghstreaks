@@ -174,7 +174,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
 
     func registerButtonTapped() {
         self.blur()
-        SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: 3)
+        SVProgressHUD.showWithStatus(NSLocalizedString("Registering...", comment: ""), maskType: .Black)
         self.preferenceViewModel.register(user: self.preferenceViewModel.user, hour: self.preferenceViewModel.hour, deviceToken: self.getDeviceToken(),
             success: {
                 SVProgressHUD.showSuccessWithStatus("Success")

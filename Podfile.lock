@@ -3,17 +3,17 @@ PODS:
   - LRResty (0.11.0):
     - NSData+Base64 (~> 1.0)
   - NSData+Base64 (1.0.0)
-  - SVProgressHUD (1.0)
+  - SVProgressHUD (1.1.2)
 
 DEPENDENCIES:
   - FontAwesome-iOS
   - LRResty (~> 0.11.0)
-  - SVProgressHUD (~> 1.0)
+  - SVProgressHUD (= 1.1.2)
 
 SPEC CHECKSUMS:
   FontAwesome-iOS: 0c39b9f5d4687d36cf8958f61295c2b7960a7308
   LRResty: 4e2b2d1e2080406c4bf684e22ed46906d65bd708
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
-  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.35.0
