@@ -8,7 +8,7 @@ PODS:
 DEPENDENCIES:
   - FontAwesome-iOS
   - LRResty (~> 0.11.0)
-  - SVProgressHUD (= 1.1.2)
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   FontAwesome-iOS: 0c39b9f5d4687d36cf8958f61295c2b7960a7308
