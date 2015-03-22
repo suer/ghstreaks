@@ -1,6 +1,6 @@
 import UIKit
 
-class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class PreferenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var preferenceViewModel = PreferenceViewModel()
     var hourPickerView: UIPickerView?
@@ -40,6 +40,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         preferenceViewModel.load()
+        setEnabledForLeftButton()
         userTextField.text = preferenceViewModel.user
         for i in 0..<24 {
             if preferenceViewModel.hour == String(format: "%d:00", i) {
@@ -89,7 +90,8 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
                 NSLayoutConstraint(item: userTextField, attribute: .Right, relatedBy: .Equal, toItem: cell.contentView, attribute: .Right, multiplier: 1.0, constant: -15.0)
                 ])
             userTextField.textAlignment = .Right
-            userTextField.delegate = self
+            userTextField.addTarget(self, action: Selector("userTextChanged"), forControlEvents: .EditingChanged)
+            preferenceViewModel.addObserver(self, forKeyPath: "user", options: .New, context: nil)
         case 1:
             cell.textLabel?.text = NSLocalizedString("Notify", comment: "")
             cell.detailTextLabel?.text = preferenceViewModel.hour
@@ -101,17 +103,20 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if keyPath == "hour" {
+        if keyPath == "user" {
+            setEnabledForLeftButton()
+        } else if keyPath == "hour" {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             cell?.detailTextLabel?.text = preferenceViewModel.hour
         }
     }
 
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        if textField == userTextField {
-            preferenceViewModel.user = userTextField.text
-        }
-        return true
+    private func setEnabledForLeftButton() {
+        navigationItem.leftBarButtonItem?.enabled = !preferenceViewModel.user.isEmpty
+    }
+
+    func userTextChanged() {
+        preferenceViewModel.user = userTextField.text
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
