@@ -9,10 +9,6 @@ class StreaksViewModel: NSObject {
         currentStreaks = userDefaults.integerForKey(KEY_OF_CURRENT_STREAKS) ?? 0
     }
 
-    func setCurrentStreaks(currentStreaks: Int) {
-        self.currentStreaks = currentStreaks
-    }
-
     func retrieveStreaks(url: NSURL, success: () -> (), failure: NSException -> ()) {
         LRResty.client().get(url.absoluteString, withBlock: {
             response in
@@ -27,7 +23,7 @@ class StreaksViewModel: NSObject {
             if dic == nil || error != nil {
                 failure(NSException(name: "JSON error", reason: "fail to parse JSON", userInfo: nil))
             } else {
-                self.currentStreaks = dic!.objectForKey("current_streaks") as Int
+                self.currentStreaks = dic!.objectForKey("current_streaks") as! Int
                 let userDefaults = NSUserDefaults.standardUserDefaults()
                 userDefaults.setInteger(self.currentStreaks, forKey: self.KEY_OF_CURRENT_STREAKS)
                 success()

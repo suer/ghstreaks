@@ -155,11 +155,11 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        preferenceViewModel.setHour(hourChoices[row])
+        preferenceViewModel.hour = hourChoices[row]
     }
 
     private func addRegisterButton() {
-        let registerButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let registerButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         registerButton.frame = CGRectMake(10, 250, view.bounds.width, 30)
         registerButton.titleLabel?.textAlignment = .Center
         registerButton.titleLabel?.font = UIFont.systemFontOfSize(20)
@@ -208,7 +208,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         return (UIApplication.sharedApplication().delegate as? AppDelegate)?.deviceToken ?? ""
     }
 
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         blur()
     }
 

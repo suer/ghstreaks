@@ -36,15 +36,7 @@ class PreferenceViewModel: NSObject {
         let bundle = NSBundle.mainBundle()
         let path = bundle.pathForResource("preference", ofType: "plist")
         let dictionary = NSDictionary(contentsOfFile: path!)
-        return dictionary!.objectForKey("ServiceURL") as String
-    }
-
-    func setUser(user: String) {
-        self.user = user
-    }
-
-    func setHour(hour: String) {
-        self.hour = hour
+        return dictionary!.objectForKey("ServiceURL") as! String
     }
 
     func register(#user: String, hour: String, deviceToken: String, success: () -> (), failure: NSException -> ()) {

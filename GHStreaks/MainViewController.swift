@@ -8,7 +8,7 @@ class MainViewController: UIViewController {
     let titleLabel = UILabel()
     let streaksLabel = UILabel()
 
-    convenience override init() {
+    convenience init() {
         self.init(nibName: nil, bundle: nil)
     }
 
