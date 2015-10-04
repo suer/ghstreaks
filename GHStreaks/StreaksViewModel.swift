@@ -18,15 +18,14 @@ class StreaksViewModel: NSObject {
                 failure(NSException(name: "JSON error", reason: "JSON is nil", userInfo: nil))
             }
 
-            var error: NSError? = nil
-            let dic = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.AllowFragments, error: &error) as? NSDictionary
-            if dic == nil || error != nil {
-                failure(NSException(name: "JSON error", reason: "fail to parse JSON", userInfo: nil))
-            } else {
+            do {
+                let dic = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
                 self.currentStreaks = dic!.objectForKey("current_streaks") as! Int
                 let userDefaults = NSUserDefaults.standardUserDefaults()
                 userDefaults.setInteger(self.currentStreaks, forKey: self.KEY_OF_CURRENT_STREAKS)
                 success()
+            } catch {
+                failure(NSException(name: "JSON error", reason: "fail to parse JSON", userInfo: nil))
             }
 
             return

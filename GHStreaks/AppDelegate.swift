@@ -20,11 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func registerNotification(application: UIApplication) {
-        if application.respondsToSelector(Selector("registerUserNotificationSettings:")) {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: (UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge), categories: nil))
+        if #available(iOS 8.0, *) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: ([UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge]), categories: nil))
             application.registerForRemoteNotifications()
         } else {
-            application.registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound | UIRemoteNotificationType.Alert)
+            application.registerForRemoteNotificationTypes([UIRemoteNotificationType.Badge, UIRemoteNotificationType.Sound, UIRemoteNotificationType.Alert])
         }
     }
 

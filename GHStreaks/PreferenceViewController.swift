@@ -20,14 +20,14 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         title = NSLocalizedString("Preference", comment: "")
         view.backgroundColor = UIColor.whiteColor()
-        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         edgesForExtendedLayout = UIRectEdge.None
         automaticallyAdjustsScrollViewInsets = false
         super.viewDidLoad()
@@ -55,8 +55,8 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
 
-        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
-        tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addConstraints([
             NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: 0.0),
             NSLayoutConstraint(item: tableView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: cellHeight * 2),
@@ -81,8 +81,8 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         case 0:
             cell.textLabel?.text = NSLocalizedString("User", comment: "")
             cell.contentView.addSubview(userTextField)
-            userTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
-            cell.contentView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+            userTextField.translatesAutoresizingMaskIntoConstraints = false
+            cell.contentView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             cell.contentView.addConstraints([
                 NSLayoutConstraint(item: userTextField, attribute: .Top, relatedBy: .Equal, toItem: cell.contentView, attribute: .Top, multiplier: 1.0, constant: 0.0),
                 NSLayoutConstraint(item: userTextField, attribute: .Bottom, relatedBy: .Equal, toItem: cell.contentView, attribute: .Bottom, multiplier: 1.0, constant: 0.0),
@@ -102,7 +102,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
 
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "user" {
             setEnabledForLeftButton()
         } else if keyPath == "hour" {
@@ -116,7 +116,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func userTextChanged() {
-        preferenceViewModel.user = userTextField.text
+        preferenceViewModel.user = userTextField.text ?? ""
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -159,7 +159,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     private func addRegisterButton() {
-        let registerButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let registerButton = UIButton(type: UIButtonType.System)
         registerButton.frame = CGRectMake(10, 250, view.bounds.width, 30)
         registerButton.titleLabel?.textAlignment = .Center
         registerButton.titleLabel?.font = UIFont.systemFontOfSize(20)
@@ -167,8 +167,8 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         registerButton.addTarget(self, action: Selector("registerButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(registerButton)
 
-        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
-        registerButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
         view.addConstraints([
             NSLayoutConstraint(item: registerButton, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: cellHeight * 3),
             NSLayoutConstraint(item: registerButton, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1.0, constant: cellHeight * 4),
@@ -208,7 +208,7 @@ class PreferenceViewController: UIViewController, UITableViewDelegate, UITableVi
         return (UIApplication.sharedApplication().delegate as? AppDelegate)?.deviceToken ?? ""
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         blur()
     }
 

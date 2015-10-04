@@ -39,7 +39,7 @@ class PreferenceViewModel: NSObject {
         return dictionary!.objectForKey("ServiceURL") as! String
     }
 
-    func register(#user: String, hour: String, deviceToken: String, success: () -> (), failure: NSException -> ()) {
+    func register(user user: String, hour: String, deviceToken: String, success: () -> (), failure: NSException -> ()) {
         let utcOffset = NSTimeZone.defaultTimeZone().secondsFromGMT / 3600
         let params = [
             "notification[name]": user,

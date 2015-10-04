@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         title = "GHStreaks"
         view.backgroundColor = UIColor.whiteColor()
-        view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         loadTitleLabel()
         loadStreaksLabel()
         loadToolBarButton()
@@ -58,7 +58,7 @@ class MainViewController: UIViewController {
         titleLabel.textAlignment = NSTextAlignment.Center
         view.addSubview(titleLabel)
 
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         let top = view.bounds.height / 5
         view.addConstraints([
             NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: top),
@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
         streaksLabel.textAlignment = NSTextAlignment.Center
         view.addSubview(streaksLabel)
 
-        streaksLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        streaksLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addConstraints([
             NSLayoutConstraint(item: streaksLabel, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Top, multiplier: 1.0, constant: 30.0),
             NSLayoutConstraint(item: streaksLabel, attribute: .Bottom, relatedBy: .Equal, toItem: titleLabel, attribute: .Top, multiplier: 1.0, constant: 130.0),
@@ -85,9 +85,9 @@ class MainViewController: UIViewController {
         streaksViewModel.addObserver(self, forKeyPath: "currentStreaks", options: .New, context: nil)
     }
 
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "currentStreaks" {
-            if let newStreaks = change["new"] as? Int {
+            if let newStreaks = change?["new"] as? Int {
                 streaksLabel.text = String(newStreaks)
             }
         }
