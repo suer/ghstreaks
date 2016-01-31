@@ -206,6 +206,7 @@
 				806C6F2C19D994F200496561 /* Resources */,
 				DD256FED9918F8B006B4E6EB /* Copy Pods Resources */,
 				80A335211A8106EC009A4E1E /* ShellScript */,
+				B1533B444D065051DD9EDEBB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -318,6 +319,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "VERSION_NUMBER=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"$INFOPLIST_FILE\")\n/usr/libexec/PlistBuddy ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Settings.bundle/Root.plist -c \"set PreferenceSpecifiers:0:DefaultValue $VERSION_NUMBER\"\n\nBUILD_NUMBER=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\n/usr/libexec/PlistBuddy ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}/Settings.bundle/Root.plist -c \"set :PreferenceSpecifiers:1:DefaultValue $BUILD_NUMBER\"\n\n";
+		};
+		B1533B444D065051DD9EDEBB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		D94B9F2AF03C8F4D2BF13A3B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
